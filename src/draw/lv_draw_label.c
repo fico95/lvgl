@@ -287,6 +287,10 @@ void lv_draw_label_iterate_characters(lv_draw_unit_t * draw_unit, const lv_draw_
 
             letter_w = lv_font_get_glyph_width(font, letter, letter_next);
 
+            #if LV_USE_DRAW_EVE
+                draw_unit->target_layer->user_data = (uint32_t*)letter;
+            #endif
+
             /*Always set the bg_coordinates for placeholder drawing*/
             bg_coords.x1 = pos.x;
             bg_coords.y1 = pos.y;

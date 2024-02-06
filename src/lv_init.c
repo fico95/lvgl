@@ -124,7 +124,11 @@ bool lv_is_initialized(void)
 #endif
 }
 
+#if LV_USE_DRAW_EVE
+void lv_init(void (*cb)(lv_draw_eve_unit_t*))
+#else
 void lv_init(void)
+#endif
 {
     /*First initialize Garbage Collection if needed*/
 #ifdef LV_GC_INIT
@@ -190,6 +194,10 @@ void lv_init(void)
 
 #if LV_USE_WINDOWS
     lv_windows_platform_init();
+#endif
+
+#if LV_USE_DRAW_EVE
+    lv_draw_eve_init(cb);
 #endif
 
     _lv_obj_style_init();

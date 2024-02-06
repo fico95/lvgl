@@ -33,7 +33,6 @@ typedef struct {
 /**********************
  *  STATIC PROTOTYPES
  **********************/
-static uint32_t get_glyph_dsc_id(const lv_font_t * font, uint32_t letter);
 static int8_t get_kern_value(const lv_font_t * font, uint32_t gid_left, uint32_t gid_right);
 static int32_t unicode_list_compare(const void * ref, const void * element);
 static int32_t kern_pair_8_compare(const void * ref, const void * element);
@@ -212,11 +211,7 @@ bool lv_font_get_glyph_dsc_fmt_txt(const lv_font_t * font, lv_font_glyph_dsc_t *
     return true;
 }
 
-/**********************
- *   STATIC FUNCTIONS
- **********************/
-
-static uint32_t get_glyph_dsc_id(const lv_font_t * font, uint32_t letter)
+uint32_t get_glyph_dsc_id(const lv_font_t * font, uint32_t letter)
 {
     if(letter == '\0') return 0;
 
@@ -239,7 +234,7 @@ static uint32_t get_glyph_dsc_id(const lv_font_t * font, uint32_t letter)
         else if(fdsc->cmaps[i].type == LV_FONT_FMT_TXT_CMAP_SPARSE_TINY) {
             uint16_t key = rcp;
             uint16_t * p = _lv_utils_bsearch(&key, fdsc->cmaps[i].unicode_list, fdsc->cmaps[i].list_length,
-                                             sizeof(fdsc->cmaps[i].unicode_list[0]), unicode_list_compare);
+                                            sizeof(fdsc->cmaps[i].unicode_list[0]), unicode_list_compare);
 
             if(p) {
                 lv_uintptr_t ofs = p - fdsc->cmaps[i].unicode_list;
@@ -249,7 +244,7 @@ static uint32_t get_glyph_dsc_id(const lv_font_t * font, uint32_t letter)
         else if(fdsc->cmaps[i].type == LV_FONT_FMT_TXT_CMAP_SPARSE_FULL) {
             uint16_t key = rcp;
             uint16_t * p = _lv_utils_bsearch(&key, fdsc->cmaps[i].unicode_list, fdsc->cmaps[i].list_length,
-                                             sizeof(fdsc->cmaps[i].unicode_list[0]), unicode_list_compare);
+                                            sizeof(fdsc->cmaps[i].unicode_list[0]), unicode_list_compare);
 
             if(p) {
                 lv_uintptr_t ofs = p - fdsc->cmaps[i].unicode_list;
@@ -264,6 +259,10 @@ static uint32_t get_glyph_dsc_id(const lv_font_t * font, uint32_t letter)
     return 0;
 
 }
+
+/**********************
+ *   STATIC FUNCTIONS
+ **********************/
 
 static int8_t get_kern_value(const lv_font_t * font, uint32_t gid_left, uint32_t gid_right)
 {

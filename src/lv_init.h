@@ -16,6 +16,9 @@ extern "C" {
 #include <stdbool.h>
 #include "lv_conf_internal.h"
 
+#if LV_USE_DRAW_EVE
+#include "draw/eve/lv_draw_eve.h"
+#endif
 /*********************
  *      DEFINES
  *********************/
@@ -32,7 +35,11 @@ extern "C" {
  * Initialize LVGL library.
  * Should be called before any other LVGL related function.
  */
+#if LV_USE_DRAW_EVE
+void lv_init(void (*cb)(lv_draw_eve_unit_t*));
+#else
 void lv_init(void);
+#endif
 
 /**
  * Deinit the 'lv' library
