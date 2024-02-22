@@ -577,7 +577,7 @@ static void refr_invalid_areas(void)
  */
 static void layer_reshape_draw_buf(lv_layer_t * layer)
 {
-#ifndef LV_USE_DRAW_EVE
+#if !LV_USE_DRAW_EVE || (LV_USE_DRAW_EVE && SW_RENDERING)
     LV_ASSERT(lv_draw_buf_reshape(
                   layer->draw_buf,
                   layer->color_format,

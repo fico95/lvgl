@@ -196,7 +196,7 @@ void lv_init(void)
     lv_windows_platform_init();
 #endif
 
-#if LV_USE_DRAW_EVE
+#if LV_USE_DRAW_EVE & !SW_RENDERING
     lv_draw_eve_init(cb);
 #endif
 
